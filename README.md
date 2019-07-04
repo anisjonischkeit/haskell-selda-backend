@@ -5,7 +5,6 @@ This is a part of what was being used in a private project.
 ## Building
 
 ```
-git clone git@github.com:anisjonischkeit/haskell-selda-backend.git
 docker-compose build
 ```
 
