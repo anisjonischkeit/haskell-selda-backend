@@ -1,0 +1,8 @@
+flags: {}
+packages:
+  - .
+extra-deps:
+  - selda-0.4.0.0
+  - selda-postgresql-0.1.8.0
+  - selda-json-0.1.0.0
+resolver: lts-13.5

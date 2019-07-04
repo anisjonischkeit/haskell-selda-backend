@@ -1,0 +1,50 @@
+version: "3"
+services:
+  backend:
+    build: .
+    volumes:
+      - ./docker/etc/supervisord.conf:/etc/supervisord.conf
+      - app-volume:/bin/
+    links:
+      - postgres
+    environment:
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_PASSWORD: postgres
+      PG_USER: postgres
+      PG_DATABASE: db1
+      PORT: 3333
+    ports:
+      - "3333:3333"
+
+  postgres:
+    image: postgres:10.5
+    ports:
+      - "54321:5432"
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      POSTGRES_DB: db1
+    #   POSTGRES_PASSWORD: example
+    # ---
+    # docker exec -it haskell-selda-backend_postgres_1 /bin/bash
+    # psql -h postgres -U postgres -d db1
+  backend-builder:
+    image: haskell:8.6.5
+    volumes:
+      - ./application/:/app
+      - app-volume:/root/.local/bin
+
+    command: sleep infinity
+    environment:
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_PASSWORD: postgres
+      PG_USER: postgres
+      PG_DATABASE: db1
+      PORT: 3333
+    ports:
+      - "5432:54321"
+
+volumes:
+  app-volume:
