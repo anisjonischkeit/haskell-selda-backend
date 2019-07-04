@@ -9,7 +9,11 @@ module API.Public.Server
 where
 
 import           Servant                        ( (:>)
+                                                , (:<|>) (..)
                                                 , Server
+                                                , Handler
+                                                , Get
+                                                , PlainText
                                                 )
 import           Servant.Auth.Server            ( CookieSettings
                                                 , JWTSettings
@@ -22,7 +26,11 @@ import           API.Public.User                ( UserAPI
 import Utils.Selda (AppliedWithDB)
 
 -- * api
-type PublicAPI = "user" :> UserAPI
+type PublicAPI 
+    = "user" :> UserAPI
+    :<|> "docs" :> Get '[PlainText] String
 
-publicServer :: AppliedWithDB -> CookieSettings -> JWTSettings -> Server PublicAPI
-publicServer = userServer
+publicServer :: AppliedWithDB -> Handler String -> CookieSettings -> JWTSettings -> Server PublicAPI
+publicServer withDB docsServer cookieSettings jwtSettings 
+    = userServer withDB cookieSettings jwtSettings
+    :<|> docsServer

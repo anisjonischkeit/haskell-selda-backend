@@ -16,3 +16,5 @@ wants to see it I can fix that up.
 ```
 docker-compose up
 ```
+
+you can view the docs at localhost:3333/public/docs

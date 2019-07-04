@@ -173,7 +173,7 @@ run = do
     
 server :: AppliedWithDB -> CookieSettings -> JWTSettings -> Server AppAPI
 server withDB cookieSettings jwtSettings =
-    publicServer withDB cookieSettings jwtSettings
+    publicServer withDB docsServer cookieSettings jwtSettings
     :<|> privateServer withDB docsServer
 
 
