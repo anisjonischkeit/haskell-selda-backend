@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - ./docker/etc/supervisord.conf:/etc/supervisord.conf
-      - app-volume:/bin/
+      # - app-volume:/bin/
     links:
       - postgres
     environment:
@@ -33,7 +33,7 @@ services:
     image: haskell:8.6.5
     volumes:
       - ./application/:/app
-      - app-volume:/root/.local/bin
+      # - app-volume:/root/.local/bin
 
     command: sleep infinity
     environment:
@@ -45,6 +45,5 @@ services:
       PORT: 3333
     ports:
       - "5432:54321"
-
-volumes:
-  app-volume:
+# volumes:
+#   app-volume:
