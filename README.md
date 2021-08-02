@@ -1,7 +1,5 @@
 # Haskell Selda Backend
 
-This is a part of what was being used in a private project.
-
 ## Building
 
 ```
